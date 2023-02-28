@@ -20,9 +20,9 @@ const App = () => {
   const [modal, setModal] = React.useState(true)
   const [user, setUser] = React.useState("")
   
-  // const signIn = () => {
-  //   setModal(false)
-  // }
+  const signIn = () => {
+    setModal(false)
+  }
  
   getDocs(chatRef)
     .then((snapshot) => {
@@ -65,14 +65,14 @@ const App = () => {
   return (
     <div className='bg-slate-100 h-screen'>
       <Login />
-      {/* {
+      {
         modal &&
         <div className="bg-pink-300 w-[30rem] p-3 text-center">
           <h1>Please sign in</h1>
           <input onChange={(e) => { setUser(e.target.value) }} placeholder='Name...' />
           <button onClick={signIn} className='bg-blue-500 text-white px-2 py-[0.1rem] rounded m-2'>Done</button>
         </div>
-      } */}
+      }
       {
         !modal &&
         <div className='flex'>

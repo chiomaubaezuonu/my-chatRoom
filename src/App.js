@@ -20,9 +20,9 @@ const App = () => {
   const [modal, setModal] = React.useState(true)
   const [user, setUser] = React.useState("")
   
-  // const signIn = () => {
-  //   setModal(false)
-  // }
+  const signIn = () => {
+    setModal(false)
+  }
  
   getDocs(chatRef)
     .then((snapshot) => {
@@ -81,7 +81,7 @@ const App = () => {
           </div>
           {chats.map((chat) => {
             return <div className='bg-blue-100 rounded-lg p-2 w-[64rem] m-2' key={chat.id}>
-              <h1>Name: {user}</h1>
+              <h1>Name: {setUser(user)}</h1>
               <p>Comment: {chat.comment}</p>
               <p>Time: {chat.time}</p>
               <button onClick={() => { update(chat.id, chat.comment) }}>edit comment</button>

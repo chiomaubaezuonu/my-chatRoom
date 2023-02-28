@@ -20,9 +20,9 @@ const App = () => {
   const [modal, setModal] = React.useState(true)
   const [user, setUser] = React.useState("")
   
-  const signIn = () => {
-    setModal(false)
-  }
+  // const signIn = () => {
+  //   setModal(false)
+  // }
  
   getDocs(chatRef)
     .then((snapshot) => {

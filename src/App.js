@@ -1,13 +1,13 @@
 import React from 'react'
-import data from './data'
 import { db } from './fb-config'
-import { collection, getDocs, addDoc, updateDoc, onSnapshot, snapshot, deleteDoc, doc } from "firebase/firestore"
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore"
 import chat1 from "./images/chat1.png"
 import sendBtn from "./images/sendBtn.png"
-import { async } from '@firebase/util'
+//import { async } from '@firebase/util'
 import Login from './components/Login'
-import SignUp from './components/SignUp'
-import AuthDetails from './components/AuthDetails'
+//import SignUp from './components/SignUp'
+//import AuthDetails from './components/AuthDetails'
+
 //import Create from './components/Create'
 
 
@@ -20,14 +20,14 @@ const App = () => {
   const [modal, setModal] = React.useState(true)
   const [user, setUser] = React.useState("")
   
-  const signIn = () => {
-    setModal(false)
-  }
+  // const signIn = () => {
+  //   setModal(false)
+  // }
  
   getDocs(chatRef)
     .then((snapshot) => {
       const docs = snapshot.docs
-      let fetchedData = setChats(docs.map((doc) => {
+       setChats(docs.map((doc) => {
         return {
           id: doc.id,
           ...doc.data()

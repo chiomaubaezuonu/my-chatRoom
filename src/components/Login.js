@@ -13,7 +13,6 @@ const Login = () => {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [currentUser, setCurrentUser] = useContext(UserContext)
-
     const login = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)

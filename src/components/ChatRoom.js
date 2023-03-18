@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import { db } from '../fb-config'
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, where, orderBy } from "firebase/firestore"
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from '../fb-config'
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from "firebase/firestore"
+//import { onAuthStateChanged, signOut } from "firebase/auth";
+//import { auth } from '../fb-config'
 import { UserContext } from '../App';
 //const user = auth.currentUser;
 // const auth = getAuth();
@@ -21,12 +21,12 @@ import chat1 from "../images/chat1.png"
 import sendBtn from "../images/sendBtn.png"
 
 const ChatRoom = () => {
+  const [currentUser, setCurrentUser] = useContext(UserContext)
   const [chats, setChats] = React.useState([])
   const [newChat, setNewChat] = React.useState("")
   const chatRef = collection(db, "chats")
   //const [modal, setModal] = React.useState(true)
-  const [currentUser, setCurrentUser] = useContext(UserContext)
-
+ 
   useEffect(() => {
     getDocs(chatRef)
       .then((snapshot) => {
@@ -51,6 +51,7 @@ const ChatRoom = () => {
       createdAt: serverTimestamp()
     })
     setNewChat("")
+    console.log(currentUser)
   };
 
   //update
@@ -78,7 +79,7 @@ const ChatRoom = () => {
             </div>
 
             <div className='block'>
-              <h1>user: {chat.user}</h1>
+              <h1>user: {currentUser}</h1>
               <p>Comment: {chat.comment}</p>
               <p>Time: {chat.time}</p>
               <button onClick={() => { update(chat.id, chat.comment) }}>edit comment</button>

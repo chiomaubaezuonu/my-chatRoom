@@ -3,18 +3,17 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from "firebase/auth"
 
-
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyADIvhG3JYsrv4NXjqzO04e8L-Mk4zWDcQ",
-    authDomain: "chats-6b07c.firebaseapp.com",
-    projectId: "chats-6b07c",
-    storageBucket: "chats-6b07c.appspot.com",
-    messagingSenderId: "772381002599",
-    appId: "1:772381002599:web:a0001715cd501c16b6fdc2",
-    measurementId: "G-0XWG79QC9G"
+  apiKey: "AIzaSyA1t9XqPPUXz-C8R7ZeiQPPqxGq9lA6mqw",
+  authDomain: "chats-14e92.firebaseapp.com",
+  projectId: "chats-14e92",
+  storageBucket: "chats-14e92.appspot.com",
+  messagingSenderId: "216143412825",
+  appId: "1:216143412825:web:31aec1b82540b8e6e17b48"
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore();
+export const db = getFirestore(app);
 export const auth = getAuth(app);
 //export const check = onAuthStateChanged(auth)

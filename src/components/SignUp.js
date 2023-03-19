@@ -30,7 +30,6 @@ const SignUp = () => {
             })
         setEmail("")
         setPassword("")
-
     }
     return (
         <div>

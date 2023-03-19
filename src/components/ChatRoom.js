@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import { db } from '../fb-config'
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from "firebase/firestore"
-//import { onAuthStateChanged, signOut } from "firebase/auth";
-//import { auth } from '../fb-config'
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp} from "firebase/firestore"
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from '../fb-config'
 import { UserContext } from '../App';
 //const user = auth.currentUser;
 // const auth = getAuth();

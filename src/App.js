@@ -32,7 +32,7 @@ const App = () => {
       </UserContext.Provider>
 
       {/* <button className='bg-blue-500 w-[10rem] mx-auto mb-4 text-white py-1 px-3 rounded' type='submit'>Sign Up</button> */}
-      <AuthDetails />
+      {/* <AuthDetails /> */}
 
     </div>
   )

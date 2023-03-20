@@ -4,6 +4,7 @@ import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../fb-config'
 import { UserContext } from '../App';
+import AuthDetails from './AuthDetails';
 //const user = auth.currentUser;
 // const auth = getAuth();
 // onAuthStateChanged(auth, (user) => {
@@ -101,7 +102,7 @@ const ChatRoom = () => {
         </div>
       </div>
 
-
+      <AuthDetails />
     </div>
   )
 }

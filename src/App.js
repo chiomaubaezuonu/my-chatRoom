@@ -5,6 +5,7 @@ import Login from './components/Login'
 import ChatRoom from './components/ChatRoom'
 import SignUp from './components/SignUp'
 import AuthDetails from './components/AuthDetails'
+import app from './app.css'
 
 //import Create from './components/Create'
 
@@ -19,7 +20,7 @@ const App = () => {
 
   const [currentUser, setCurrentUser] = React.useState("")
   return (
-    <div className='bg-slate-100 h-screen'>
+    <div className='md:bg-slate-100 h-screen'>
       <UserContext.Provider value= {[currentUser, setCurrentUser]}>
         <BrowserRouter>
           <Routes>

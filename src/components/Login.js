@@ -22,8 +22,10 @@ const Login = () => {
                 if (userCredential) {
                     console.log(userCredential);
                     navigate("/chatroom")
-
                 }
+                if (window.screen.width < 768) {
+                     navigate("/chatroom")
+                  }
 
             })
             .catch((error) => {

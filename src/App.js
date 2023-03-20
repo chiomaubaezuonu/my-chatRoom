@@ -5,7 +5,7 @@ import Login from './components/Login'
 import ChatRoom from './components/ChatRoom'
 import SignUp from './components/SignUp'
 import AuthDetails from './components/AuthDetails'
-import app from './app.css'
+import './App.css'
 
 //import Create from './components/Create'
 

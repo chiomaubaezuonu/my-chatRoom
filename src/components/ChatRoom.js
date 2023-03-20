@@ -74,12 +74,12 @@ const ChatRoom = () => {
     <div>
       <div className=''>
         {chats.map((chat) => {
-          return <div className='flex bg-blue-100  rounded-lg p-2 w-[64rem] m-2' key={chat.id}>
+          return <div className='flex bg-blue-100  rounded-lg p-2 w-full mx-3 my-2' key={chat.id}>
             <div>
               <img src={chat1} alt='chat-icon' />
             </div>
 
-            <div className='block'>
+            <div className='block p-2 my-4'>
               <h1>user: {currentUser}</h1>
               <p>Comment: {chat.comment}</p>
               <p>Time: {chat.time}</p>
@@ -92,9 +92,9 @@ const ChatRoom = () => {
 
       </div>
 
-      <div className='flex'>
+      <div className='flex w-full'>
         <div className=''>
-          <input onChange={(event) => { setNewChat(event.target.value) }} className='placeholder-slate-400 p-2 rounded-md m-8 w-[40rem]' placeholder='Enter comment' />
+          <input onChange={(event) => { setNewChat(event.target.value) }} className='placeholder-slate-400 p-2 rounded-md  w-full' placeholder='Enter comment' />
         </div>
 
         <div className='my-auto'>

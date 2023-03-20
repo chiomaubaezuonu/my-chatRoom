@@ -93,7 +93,7 @@ const ChatRoom = () => {
       </div>
 
       <div className='flex w-full'>
-        <div className=''>
+        <div className=' w-full p-6'>
           <input onChange={(event) => { setNewChat(event.target.value) }} className='placeholder-slate-400 p-2 rounded-md  w-full' placeholder='Enter comment' />
         </div>
 

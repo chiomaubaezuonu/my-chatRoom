@@ -21,7 +21,6 @@ const SignUp = () => {
                 if (userCredential) {
                     navigate("/")
                     console.log(userCredential);
-
                 }
 
             })

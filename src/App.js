@@ -24,7 +24,7 @@ const App = () => {
       <UserContext.Provider value= {[currentUser, setCurrentUser]}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Login />} Navigate to="/chatroom"  />
             <Route path="chatroom" element={<ChatRoom />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="authdetails" element={<AuthDetails />} />

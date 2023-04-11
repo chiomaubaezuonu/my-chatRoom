@@ -53,7 +53,7 @@ const q = query(chatRef, orderBy('createdAt'))
     await addDoc(chatRef, {
       comment: newChat,
       user: currentUser,
-      createdAt: serverTimestamp.toDate()
+      createdAt: serverTimestamp()
     })
     setNewChat("")
   };

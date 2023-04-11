@@ -1,69 +1,91 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { auth } from '../fb-config'
 import { signInWithEmailAndPassword } from "firebase/auth"
 import ChatRoom from './ChatRoom'
 import { useNavigate, Link } from "react-router-dom";
-import app from '../fb-config'
-import { UserContext } from '../App';
-import { ToastContainer, toast } from 'react-toastify';
+//import app from '../fb-config'
+import { UsernameContext } from '../App';
+//import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//import ChatRoom from '../components/ChatRoom';
+import spinner from "../images/spinner.svg";
+import Button from "./Button"
 
 const Login = () => {
-    // const user = useContext(UserContext)
+    const [currentUser, setCurrentUser] = useContext(UsernameContext)
     const navigate = useNavigate();
     const [email, setEmail] = React.useState("")
+    const [btnTitle, setBtnTitle] = React.useState("Log in")
     const [password, setPassword] = React.useState("")
-    const [currentUser, setCurrentUser] = useContext(UserContext)
-    const [isLoading, setIsLoading] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [modal, setModal] = React.useState(false);
+    const [successMsg, setSuccessMsg] = useState("")
+    const style = {
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        top: "0",
+        left: "0",
+        right: "0",
+        bottom: "0",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        zIndex: "2", 
+        cursor: "pointer"
+    }
     const login = (e) => {
-        toast.success("login successful")
         setIsLoading(true)
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 console.log(userCredential);
                 if (userCredential) {
-                    console.log(userCredential);
+                    setSuccessMsg("Successfully logged in")
                     navigate("/chatroom")
                 }
             })
+
             .catch((error) => {
                 setIsLoading(false);
                 console.log(error);
-                toast.error("Authentication failed");
+                //toast.error("Authentication failed");
+                if (error) {
+                    setModal(true)
+                }
+                else {
+                    setModal(false)
+                }
+
             })
-
+        setCurrentUser(currentUser)
+        setEmail("")
+        setPassword("")
     }
-
-    // function handleLogin() {
-
-    //     navigate("/chatroom")
-    // }
     return (
 
-
         <div>
-            <form onSubmit={login} className='w-full bg-blue-300 md:w-[50rem] mx-auto md:p-6 h-screen'>
-                <h1 className='text-center mx-auto text-4xl pt-16  p-1'>Log in {currentUser}</h1>
+            <form onSubmit={login} className='w-full z-10 relative bg-blue-300 md:w-[50rem] mx-auto md:p-6 h-screen'>
+                {/* {password &&
+                    <div className='bg-green-600 absolute right-24 w-[10rem] text-center text-white'>Login Successful</div>
+                } */}
+                {modal &&
+                    <div className='absolute p-12 left-72 top-64 text-lg bg-white flex justify-center items-center w-[18rem] rounded text-center text-red-500'>Login failed <button className='absolute top-0 right-5' onClick={() => { setModal(false) }}>x</button></div>
+                }
+                <h1 className='text-center mx-auto text-4xl pt-16  p-1'>{btnTitle} {currentUser}</h1>
                 <div className='flex flex-col mt-24 justify-center mx-4 px-4 py-12 bg-green-200'>
                     <input className='m-2 p-1 rounded-sm' type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="email..." required />
                     <input className='m-2 p-1 rounded-sm' type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="password..." required />
-                    {/* <Link to="/chatroom"> */}
-                    <button className='bg-blue-500 w-[10rem] mx-auto mt-4 mb-4 text-white py-1 px-3 rounded' type='submit'>Log in</button>
-                    {/* </Link> */}
-                    <img
-                        src="your-loader-url"
-                    />
+                    {/* <Button loading={isLoading} title={btnTitle} /> */}
+                    <Button loading={isLoading}>
+                        Login
+                    </Button>
                 </div>
-                <div className='mt-4 w-full flex'>
-                    <h2 className='p-3 md:text-lg'>Don't have an account? <Link to="/SignUp">
-                        <button className='bg-green-500 w-[6rem] md:w-[10rem] mx-auto text-white py-1 px-3 rounded ml-3'>Sign Up</button></Link> </h2>
+                <div className='mt-4 w-full justify-center flex'>
+                    <h2 className='flex p-3 md:text-lg pt-4'>Don't have an account?</h2>
+                    <Link to="/SignUp"><Button>Sign Up</Button></Link>
                 </div>
-                {/* {isLoading ? "loading" : toast.success("Signed up succesfully", { position: toast.POSITION.TOP_RIGHT }) } */}
             </form >
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div >
+
 
     )
 }

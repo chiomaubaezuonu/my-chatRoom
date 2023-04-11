@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react'
 import { db } from '../fb-config'
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp} from "firebase/firestore"
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from "firebase/firestore"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../fb-config'
-import { UserContext } from '../App';
+import { UsernameContext, AuthContext } from '../App';
 import AuthDetails from './AuthDetails';
 //const user = auth.currentUser;
 // const auth = getAuth();
@@ -22,12 +22,13 @@ import chat1 from "../images/chat1.png"
 import sendBtn from "../images/sendBtn.png"
 
 const ChatRoom = () => {
-  const [currentUser, setCurrentUser] = useContext(UserContext)
+  const [currentUser, setCurrentUser] = useContext(UsernameContext)
+  const [email, setEmail] = useContext(AuthContext)
   const [chats, setChats] = React.useState([])
   const [newChat, setNewChat] = React.useState("")
   const chatRef = collection(db, "chats")
   //const [modal, setModal] = React.useState(true)
- 
+
   useEffect(() => {
     getDocs(chatRef)
       .then((snapshot) => {
@@ -72,6 +73,7 @@ const ChatRoom = () => {
 
   return (
     <div>
+      <h1>{email}</h1>
       <div className=''>
         {chats.map((chat) => {
           return <div className='flex bg-blue-100  rounded-lg p-2 w-full mx-3 my-2' key={chat.id}>
@@ -89,10 +91,9 @@ const ChatRoom = () => {
             {/* <button  onClick={signOut => alert("hhh")} className='bg-red-500 text-white px-2 py-1 rounded'>Sign out</button> */}
           </div>
         })}
-
       </div>
-
       <div className='flex w-full'>
+        {currentUser}
         <div className=' w-full p-6'>
           <input onChange={(event) => { setNewChat(event.target.value) }} className='placeholder-slate-400 p-2 rounded-md  w-full' placeholder='Enter comment' />
         </div>

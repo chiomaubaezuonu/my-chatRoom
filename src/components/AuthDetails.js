@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { auth } from "../fb-config";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Link, useNavigate } from "react-router-dom";
-import SignOutBtn from './SignOutBtn';
+import Button from './Button';
+import spinner from "../images/spinner.svg";
 
-const AuthDetails = () => {
+const AuthDetails = (props) => {
     const [authUser, setAuthUser] = useState(null);
+    const [email, setEmail] = React.useState("");
+    const [isLoading, setIsLoading] = React.useState(false)
     const navigate = useNavigate()
-
+    const { title } = props
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
 
@@ -22,8 +25,11 @@ const AuthDetails = () => {
             listen();
         }
     }, [])
+
     const userSignOut = () => {
+        setIsLoading(true)
         signOut(auth).then(() => {
+            setEmail("")
             navigate("/")
             console.log("signed out successful")
         }).catch((error) => {
@@ -33,10 +39,9 @@ const AuthDetails = () => {
     return (
         <div>
             {authUser ? <> <p>{`signed in as ${authUser.email}`}</p>
-                <button className='bg-blue-500 p-2 text- white rounded' onClick={userSignOut}>sign out</button> </> : <p>signed out</p>}
-
+                <Button loading={isLoading} className='bg-blue-500 p-2 text- white rounded' onClick={userSignOut}>sign out</Button> </> : <p>signed out</p>}
         </div>
     )
 }
 
-export default AuthDetails
+export default AuthDetails;

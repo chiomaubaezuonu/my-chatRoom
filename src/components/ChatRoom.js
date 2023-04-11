@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { db } from '../fb-config'
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from "firebase/firestore"
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, orderBy, serverTimestamp, query } from "firebase/firestore"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../fb-config'
 import { UsernameContext, AuthContext } from '../App';
@@ -42,6 +42,9 @@ const ChatRoom = () => {
       })
   }, [])
 
+  //query 
+const q = query(chatRef, orderBy('createdAt'))
+
   //addDoc
   const send = async () => {
     if (newChat === "") {
@@ -50,10 +53,9 @@ const ChatRoom = () => {
     await addDoc(chatRef, {
       comment: newChat,
       user: currentUser,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp.toDate()
     })
     setNewChat("")
-    console.log(currentUser)
   };
 
   //update
@@ -84,7 +86,7 @@ const ChatRoom = () => {
               <h1>user: {currentUser}</h1>
               <p>Comment: {chat.comment}</p>
               <p>Time: {chat.time}</p>
-              <button onClick={() => { update(chat.id, chat.comment) }}>edit comment</button>
+              {/* <button onClick={() => { update(chat.id, chat.comment) }}>edit comment</button> */}
               <button className='bg-red-600 bl m-2 px-2 rounded text-white' onClick={() => { deleteComment(chat.id) }}>Delete</button>
             </div>
             {/* <button  onClick={signOut => alert("hhh")} className='bg-red-500 text-white px-2 py-1 rounded'>Sign out</button> */}

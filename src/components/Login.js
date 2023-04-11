@@ -67,7 +67,7 @@ const Login = () => {
                     <div className='bg-green-600 absolute right-24 w-[10rem] text-center text-white'>Login Successful</div>
                 } */}
                 {modal &&
-                    <div className='absolute p-12 left-72 top-64 text-lg bg-white flex justify-center items-center w-[18rem] rounded text-center text-red-500'>Login failed <button className='absolute top-0 right-5' onClick={() => { setModal(false) }}>x</button></div>
+                    <div className='absolute p-12 top-56 left-16 md:left-72 md:top-64 text-lg bg-white flex justify-center items-center w-[18rem] rounded text-center text-red-500'>Login failed <button className='absolute top-0 right-5' onClick={() => { setModal(false) }}>x</button></div>
                 }
                 <h1 className='text-center mx-auto text-4xl pt-16  p-1'>{btnTitle} {currentUser}</h1>
                 <div className='flex flex-col mt-24 justify-center mx-4 px-4 py-12 bg-green-200'>

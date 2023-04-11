@@ -38,7 +38,7 @@ const AuthDetails = (props) => {
     }
     return (
         <div>
-            {authUser ? <> <p>{`signed in as ${authUser.email}`}</p>
+            {authUser ? <> <p className='text-center'>{`signed in as ${authUser.email}`}</p>
                 <Button loading={isLoading} className='bg-blue-500 p-2 text- white rounded' onClick={userSignOut}>sign out</Button> </> : <p>signed out</p>}
         </div>
     )

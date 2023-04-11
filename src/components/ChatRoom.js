@@ -73,10 +73,9 @@ const ChatRoom = () => {
 
   return (
     <div>
-      <h1>{email}</h1>
-      <div className=''>
+      <div className='w-full px-6 py-2 flex flex-col justify-center items-center'>
         {chats.map((chat) => {
-          return <div className='flex bg-blue-100  rounded-lg p-2 w-full mx-3 my-2' key={chat.id}>
+          return <div className='flex bg-blue-100  rounded-lg p-2 w-full mx-2 my-2' key={chat.id}>
             <div>
               <img src={chat1} alt='chat-icon' />
             </div>
@@ -92,14 +91,14 @@ const ChatRoom = () => {
           </div>
         })}
       </div>
-      <div className='flex w-full'>
+      <div className='w-full px-6 py-2 flex justify-center items-center'>
         {currentUser}
-        <div className=' w-full p-6'>
+        <div className=' w-full ml-1 mr-6 p-2 my'>
           <input onChange={(event) => { setNewChat(event.target.value) }} className='placeholder-slate-400 p-2 rounded-md  w-full' placeholder='Enter comment' />
         </div>
 
-        <div className='my-auto'>
-          <img src={sendBtn} onClick={send} className="w-[2.3rem] cursor-pointer" alt="sendBtn" />
+        <div className='my-auto w-84 mr-10'>
+          <img src={sendBtn} onClick={send} className="w-[2rem] cursor-pointer" alt="sendBtn" />
         </div>
       </div>
 

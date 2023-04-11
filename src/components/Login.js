@@ -80,7 +80,7 @@ const Login = () => {
                 </div>
                 <div className='mt-4 w-full justify-center flex'>
                     <h2 className='flex p-3 md:text-lg pt-4'>Don't have an account?</h2>
-                    <Link to="/SignUp"><Button onClick={(()=> setEmail(""))}>Sign Up</Button></Link>
+                    <Link to="/SignUp"><Button>Sign Up</Button></Link>
                 </div>
             </form >
             {/* <ToastContainer /> */}

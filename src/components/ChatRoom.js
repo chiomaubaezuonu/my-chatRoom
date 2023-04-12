@@ -1,10 +1,11 @@
 import React, { useEffect, useContext } from 'react'
 import { db } from '../fb-config'
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, orderBy, serverTimestamp, query } from "firebase/firestore"
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, orderBy, serverTimestamp, query, onSnapshot } from "firebase/firestore"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../fb-config'
 import { UsernameContext, AuthContext } from '../App';
 import AuthDetails from './AuthDetails';
+import moment, { Moment } from 'moment/moment';
 //const user = auth.currentUser;
 // const auth = getAuth();
 // onAuthStateChanged(auth, (user) => {
@@ -29,21 +30,28 @@ const ChatRoom = () => {
   const chatRef = collection(db, "chats")
   //const [modal, setModal] = React.useState(true)
 
-  useEffect(() => {
-    getDocs(chatRef)
-      .then((snapshot) => {
-        const docs = snapshot.docs
-        setChats(docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data()
-          }
-        }))
-      })
-  }, [])
+  // useEffect(() => {
+  //   const q = query(chatRef, orderBy('createdAt', 'asc'))
+  //   getDocs(q, chatRef)
+  //     .then((snapshot) => {
+  //       const docs = snapshot.docs
+  //       setChats(docs.map((doc) => {
+  //         return {
+  //           id: doc.id,
+  //           ...doc.data()
+  //         }
+  //       }))
+  //     })
+  // }, [])
 
-  //query 
-const q = query(chatRef, orderBy('createdAt'))
+  //onSnapshot
+  const q = query(chatRef, orderBy('createdAt', 'asc'))
+  onSnapshot((snapshot) => {
+    const docs = snapshot.docs
+    setChats(docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+   }
+ 
+  )
 
   //addDoc
   const send = async () => {
@@ -57,7 +65,7 @@ const q = query(chatRef, orderBy('createdAt'))
     })
     setNewChat("")
   };
-
+  
   //update
   const update = async (id, comment) => {
     const chatDoc = doc(db, "chats", id)
@@ -81,11 +89,10 @@ const q = query(chatRef, orderBy('createdAt'))
             <div>
               <img src={chat1} alt='chat-icon' />
             </div>
-
             <div className='block p-2 my-4'>
               <h1>user: {currentUser}</h1>
               <p>Comment: {chat.comment}</p>
-              <p>Time: {chat.time}</p>
+              <p>Time: {moment(chat.createdAt.toDate()).calendar()}</p>
               {/* <button onClick={() => { update(chat.id, chat.comment) }}>edit comment</button> */}
               <button className='bg-red-600 bl m-2 px-2 rounded text-white' onClick={() => { deleteComment(chat.id) }}>Delete</button>
             </div>

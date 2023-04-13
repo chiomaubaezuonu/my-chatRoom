@@ -69,9 +69,7 @@ const ChatRoom = () => {
       user: currentUser,
       createdAt: serverTimestamp()
     })
-    if (newChat) {
-      setNewChat("")
-    }
+    setNewChat("")
   };
   //update
   // const update = async (id, comment) => {
@@ -110,7 +108,7 @@ const ChatRoom = () => {
       <div className='w-full px-6 py-2 flex justify-center items-center'>
         {currentUser}
         <div className=' w-full ml-1 mr-6 p-2 my'>
-          <input onChange={(event) => { setNewChat(event.target.value) }} className='placeholder-slate-400 p-2 rounded-md  w-full' placeholder='Enter comment' />
+          <input value={newChat} onChange={(event) => { setNewChat(event.target.value) }} className='placeholder-slate-400 p-2 rounded-md  w-full' placeholder='Enter comment' />
         </div>
 
         <div className='my-auto w-84 mr-10'>

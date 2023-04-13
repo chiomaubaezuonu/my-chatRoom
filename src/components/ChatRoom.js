@@ -30,6 +30,7 @@ const ChatRoom = () => {
   const chatRef = collection(db, "chats")
   //const [modal, setModal] = React.useState(true)
 
+  //get data
   // useEffect(() => {
   //   const q = query(chatRef, orderBy('createdAt', 'asc'))
   //   getDocs(q, chatRef)
@@ -44,14 +45,19 @@ const ChatRoom = () => {
   //     })
   // }, [])
 
-  //onSnapshot
+  // Real time data collection with onSnapshot
   const q = query(chatRef, orderBy('createdAt', 'asc'))
-  onSnapshot((snapshot) => {
+  onSnapshot(q, (snapshot) => {
     const docs = snapshot.docs
-    setChats(docs.map((doc) => ({ id: doc.id, ...doc.data() })))
-   }
- 
-  )
+    setChats(docs.map((doc) => ({
+
+      id: doc.id,
+      ...doc.data()
+
+    })))
+  })
+
+
 
   //addDoc
   const send = async () => {
@@ -63,17 +69,18 @@ const ChatRoom = () => {
       user: currentUser,
       createdAt: serverTimestamp()
     })
-    setNewChat("")
-  };
-  
-  //update
-  const update = async (id, comment) => {
-    const chatDoc = doc(db, "chats", id)
-    const newFields = {
-      comment: ""
+    if (newChat) {
+      setNewChat("")
     }
-    await updateDoc(chatDoc, newFields)
-  }
+  };
+  //update
+  // const update = async (id, comment) => {
+  //   const chatDoc = doc(db, "chats", id)
+  //   const newFields = {
+  //     comment: ""
+  //   }
+  //   await updateDoc(chatDoc, newFields)
+  // }
 
   //deleteDoc
   const deleteComment = async (id) => {
@@ -92,7 +99,7 @@ const ChatRoom = () => {
             <div className='block p-2 my-4'>
               <h1>user: {currentUser}</h1>
               <p>Comment: {chat.comment}</p>
-              <p>Time: {moment(chat.createdAt.toDate()).calendar()}</p>
+              <p>Time: {chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</p>
               {/* <button onClick={() => { update(chat.id, chat.comment) }}>edit comment</button> */}
               <button className='bg-red-600 bl m-2 px-2 rounded text-white' onClick={() => { deleteComment(chat.id) }}>Delete</button>
             </div>

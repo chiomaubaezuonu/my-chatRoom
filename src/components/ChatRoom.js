@@ -45,6 +45,8 @@ const ChatRoom = () => {
   //     })
   // }, [])
 
+
+
   // Real time data collection with onSnapshot
   const q = query(chatRef, orderBy('createdAt', 'asc'))
   onSnapshot(q, (snapshot) => {

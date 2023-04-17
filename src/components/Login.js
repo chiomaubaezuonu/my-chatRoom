@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { auth } from '../fb-config'
+import { auth, db } from '../fb-config'
 import { signInWithEmailAndPassword } from "firebase/auth"
 import ChatRoom from './ChatRoom'
 import { useNavigate, Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import spinner from "../images/spinner.svg";
 import Button from "./Button"
 import loginImg from "../images/loginImg.png"
+import { getAuth } from "firebase/auth";
 
 const Login = () => {
     const [currentUser, setCurrentUser] = useContext(UsernameContext)
@@ -20,30 +21,20 @@ const Login = () => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [modal, setModal] = React.useState(false);
     const [successMsg, setSuccessMsg] = useState("")
-    const style = {
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        top: "0",
-        left: "0",
-        right: "0",
-        bottom: "0",
-        backgroundColor: "rgba(0,0,0,0.5)",
-        zIndex: "2", 
-        cursor: "pointer"
-    }
+    console.log(currentUser)
+const auth = getAuth();
+const user = auth.currentUser;
     const login = (e) => {
         setIsLoading(true)
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 console.log(userCredential);
-                if (userCredential) {
+                if (userCredential ) {
                     setSuccessMsg("Successfully logged in")
                     navigate("/chatroom")
                 }
             })
-
             .catch((error) => {
                 setIsLoading(false);
                 console.log(error);
@@ -87,21 +78,21 @@ const Login = () => {
         //     {/* <ToastContainer /> */}
         // </div >
 
-        <div className='flex flex-col justify-center'>     
-        <form onSubmit={login} className='w-full p-6 md:bg-blue-300 md:w-1/2 md:p-6 h-screen'>
+        <div className='flex flex-col justify-center items-center md:h-full  lg:border-8 bg-gray-100 lg:p-14'>     
+        <form onSubmit={login} className='w-full md:h-fit md:w-full h-full bg-white md:p-2 md:my-auto lg:h-fit'>
         <img src={loginImg} className='w-[4rem] md:w-[4rem] mt-4 py-3 pl-4' alt='login-icon' />
             <h1 className='text-center mx-auto  text-4xl mt-1 pt-1'>{btnTitle} {currentUser}</h1>
             {/* <p className='text-center text-xl text-[#4b4b50] py-4'>Let's get started with your 30 day free trial. </p> */}
             <div className='flex flex-col mt-6 justify-center mx-1 px-1 py-12'>
-                <input className='m-4 p-4 rounded-sm' type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email..." required />
+                <input className='p-2 md:m-3 lg:m-1 md:p-3 rounded-sm' type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email..." required />
                 <hr></hr>
-                <input className='m-4 p-4 rounded-sm' type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password..." required />
+                <input className='p-2 md:m-3 lg:m-1 md:p-3 rounded-sm' type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password..." required />
                 <hr></hr>
                 <Button loading={isLoading}>Login</Button>
             </div>
-            <div className='w-full my-8 justify-center flex pb-3'>
+            <div className='w-full my-8 lg:my-0 md:my-2 justify-center flex pb-3'>
                 <h2 className='mr-2 text-xl'>Don't have an account?</h2>
-                <Link to="/SignUp">Sign Up</Link>
+                <Link className='tetx-xl' to="/">Sign Up</Link>
             </div>
         </form >
     </div>

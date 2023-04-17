@@ -19,6 +19,12 @@ const AuthDetails = (props) => {
 
             if (user) {
                 setAuthUser(user)
+                const uid = user.uid;
+                // if(user === uid){ 
+                // console.log (uid)
+                // console.log(user)
+                // alert("yes")
+                // }
             } else {
                 setAuthUser(null);
             }
@@ -27,7 +33,6 @@ const AuthDetails = (props) => {
             listen();
         }
     }, [])
-
     const userSignOut = () => {
         setIsLoading(true)
         signOut(auth).then(() => {

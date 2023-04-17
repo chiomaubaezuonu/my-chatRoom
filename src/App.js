@@ -13,18 +13,17 @@ export const UsernameContext = createContext(["", () => { }])
 export const AuthContext = createContext(["", () => { }])
 
 const App = () => {
-  const [email, setEmail] = React.useState("")
+ // const [newName, setNewName] = React.useState("")
   const [currentUser, setCurrentUser] = React.useState("")
 
   return (
-    <div className='md:bg-slate-100 h-screen'>
-      {/* <UserContext.Provider value= {[currentUser, setCurrentUser]}> */}
-      <UsernameContext.Provider value={[currentUser, setCurrentUser]}>
+    <div>
+      <UsernameContext.Provider value= {[currentUser, setCurrentUser]}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<SignUp />} />
             <Route path="chatroom" element={<ChatRoom />} />
-            <Route path="signup" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
             <Route path="authdetails" element={<AuthDetails />} />
           </Routes>
         </BrowserRouter>

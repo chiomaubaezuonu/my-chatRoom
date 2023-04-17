@@ -97,7 +97,7 @@ const ChatRoom = () => {
               <img src={chat1} alt='chat-icon' />
             </div>
             <div className='block p-2 my-4'>
-              <h1>user: {currentUser}</h1>
+              <h1>user: {chat.user}</h1>
               <p>Comment: {chat.comment}</p>
               <p>Time: {chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</p>
               {/* <button onClick={() => { update(chat.id, chat.comment) }}>edit comment</button> */}

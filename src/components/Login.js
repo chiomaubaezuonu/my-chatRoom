@@ -11,26 +11,25 @@ import spinner from "../images/spinner.svg";
 import Button from "./Button"
 import loginImg from "../images/loginImg.png"
 import { getAuth } from "firebase/auth";
+import letsChat from "../images/letsChat-img.jpg"
 
 const Login = () => {
-    const [currentUser, setCurrentUser] = useContext(UsernameContext)
+    const [newUser, setNewUser] = useContext(UsernameContext)
     const navigate = useNavigate();
     const [email, setEmail] = React.useState("")
-    const [btnTitle, setBtnTitle] = React.useState("Welcome")
+    const [btnTitle, setBtnTitle] = React.useState("Hello")
     const [password, setPassword] = React.useState("")
     const [isLoading, setIsLoading] = React.useState(false);
     const [modal, setModal] = React.useState(false);
-    const [successMsg, setSuccessMsg] = useState("")
-    console.log(currentUser)
-const auth = getAuth();
-const user = auth.currentUser;
+    const [successMsg, setSuccessMsg] = useState("");
+    const auth = getAuth();
+    const user = auth.currentUser;
     const login = (e) => {
         setIsLoading(true)
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log(userCredential);
-                if (userCredential ) {
+                if (userCredential) {
                     setSuccessMsg("Successfully logged in")
                     navigate("/chatroom")
                 }
@@ -47,55 +46,36 @@ const user = auth.currentUser;
                 }
 
             })
-        setCurrentUser(currentUser)
+        setNewUser(newUser)
         setEmail("")
         setPassword("")
     }
     return (
 
-        // <div>
-        //     <form onSubmit={login} className='w-full z-10 relative bg-blue-300 md:w-[50rem] mx-auto md:p-6 h-screen'>
-        //         {/* {password &&
-        //             <div className='bg-green-600 absolute right-24 w-[10rem] text-center text-white'>Login Successful</div>
-        //         } */}
-        //         {modal &&
-        //             <div className='absolute p-12 top-56 left-16 md:left-72 md:top-64 text-lg bg-white flex justify-center items-center w-[18rem] rounded text-center text-red-500'>Login failed <button className='absolute top-0 right-5' onClick={() => { setModal(false) }}>x</button></div>
-        //         }
-        //         <h1 className='text-center mx-auto text-4xl pt-16  p-1'>{btnTitle} {currentUser}</h1>
-        //         <div className='flex flex-col mt-24 justify-center mx-4 px-4 py-12 bg-green-200'>
-        //             <input className='m-2 p-1 rounded-sm' type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="email..." required />
-        //             <input className='m-2 p-1 rounded-sm' type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="password..." required />
-        //             {/* <Button loading={isLoading} title={btnTitle} /> */}
-        //             <Button loading={isLoading}>
-        //                 Login
-        //             </Button>
-        //         </div>
-        //         <div className='mt-4 w-full justify-center flex'>
-        //             <h2 className='flex p-3 md:text-lg pt-4'>Don't have an account?</h2>
-        //             <Link to="/SignUp"><Button>Sign Up</Button></Link>
-        //         </div>
-        //     </form >
-        //     {/* <ToastContainer /> */}
-        // </div >
-
-        <div className='flex flex-col justify-center items-center md:h-full  lg:border-8 bg-gray-100 lg:p-14'>     
-        <form onSubmit={login} className='w-full md:h-fit md:w-full h-full bg-white md:p-2 md:my-auto lg:h-fit'>
-        <img src={loginImg} className='w-[4rem] md:w-[4rem] mt-4 py-3 pl-4' alt='login-icon' />
-            <h1 className='text-center mx-auto  text-4xl mt-1 pt-1'>{btnTitle} {currentUser}</h1>
-            {/* <p className='text-center text-xl text-[#4b4b50] py-4'>Let's get started with your 30 day free trial. </p> */}
-            <div className='flex flex-col mt-6 justify-center mx-1 px-1 py-12'>
-                <input className='p-2 md:m-3 lg:m-1 md:p-3 rounded-sm' type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email..." required />
-                <hr></hr>
-                <input className='p-2 md:m-3 lg:m-1 md:p-3 rounded-sm' type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password..." required />
-                <hr></hr>
-                <Button loading={isLoading}>Login</Button>
+        <div className='block lg:flex lg:border-8 lg:p-6  h-min  bg-gray-100'>
+            <form onSubmit={login} className='w-full mb-0 px-2 py-4 bg-white md:w-full h-full md:h-screen md:py-6 lg:w-1/2'>
+                <img src={loginImg} className='w-[4rem] md:w-[4rem] mt-4 py-3 pl-4' alt='login-icon' />
+                <h1 className='text-center mx-auto  text-3xl  pt-3 md:text-4xl'>{btnTitle} {newUser}</h1>
+                <p className="text-center text-[#4b4b50] md:text-2xl lg:text-lg">
+                    To continue, please login with your email and password
+                </p>
+                {/* <p className='text-center text-xl text-[#4b4b50] py-4'>Let's get started with your 30 day free trial. </p> */}
+                <div className='flex flex-col mt-4 justify-center mx-1 px-2 py-2 md:py-6'>
+                    <input className='p-3 m-3 md:m-3 lg:m-1 md:py-2 lg:py-3 rounded-sm' type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email..." required />
+                    <hr></hr>
+                    <input className='p-3 m-3 md:m-3 lg:m-1 md:p-2 lg:py-3 rounded-sm' type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password..." required />
+                    <hr></hr>
+                    <Button loading={isLoading}>Login</Button>
+                </div>
+                <div className='w-full mb-0 mt-0 justify-center flex'>
+                    <h2 className='mr-2 text-lg md:text-3xl'>Don't have an account?</h2>
+                    <Link className='text-xl lg:text-4xl underline' to="/">Sign Up</Link>
+                </div>
+            </form >
+            <div className='hidden md:hidden lg:flex w-1/2  lg:h-screen lg:bg-blue-600 left-0 top-0 '>
+                <img src={letsChat} className='hidden md:hidden lg:h-full lg:flex h-fit w-full' alt="app-img" />
             </div>
-            <div className='w-full my-8 lg:my-0 md:my-2 justify-center flex pb-3'>
-                <h2 className='mr-2 text-xl'>Don't have an account?</h2>
-                <Link className='tetx-xl' to="/">Sign Up</Link>
-            </div>
-        </form >
-    </div>
+        </div>
 
     )
 }

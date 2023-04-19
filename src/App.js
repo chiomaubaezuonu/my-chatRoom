@@ -14,11 +14,11 @@ export const AuthContext = createContext(["", () => { }])
 
 const App = () => {
  // const [newName, setNewName] = React.useState("")
-  const [currentUser, setCurrentUser] = React.useState("")
+  const [newUser, setNewUser] = React.useState("")
 
   return (
     <div>
-      <UsernameContext.Provider value= {[currentUser, setCurrentUser]}>
+      <UsernameContext.Provider value= {[newUser, setNewUser]}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignUp />} />

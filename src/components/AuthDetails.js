@@ -1,7 +1,7 @@
 // This file checks whether a user is signed in and which user it is
 import React, { useEffect, useState, useContext } from 'react'
 import { auth } from "../fb-config";
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth';
 import { Link, useNavigate } from "react-router-dom";
 import Button from './Button';
 import { UsernameContext, AuthContext } from '../App';
@@ -19,12 +19,6 @@ const AuthDetails = (props) => {
 
             if (user) {
                 setAuthUser(user)
-                const uid = user.uid;
-                // if(user === uid){ 
-                // console.log (uid)
-                // console.log(user)
-                // alert("yes")
-                // }
             } else {
                 setAuthUser(null);
             }
@@ -33,6 +27,10 @@ const AuthDetails = (props) => {
             listen();
         }
     }, [])
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+
     const userSignOut = () => {
         setIsLoading(true)
         signOut(auth).then(() => {
@@ -45,8 +43,8 @@ const AuthDetails = (props) => {
     }
     return (
         <div>
-            {authUser ? <> <p className='text-center'>{`signed in as ${authUser.email}`}</p>
-                <Button loading={isLoading} className='bg-blue-500 p-2 text- white rounded' onClick={userSignOut}>sign out</Button> </> : <p>signed out</p>}
+            {authUser ? <> <p className='hidden md:block text-center'>{`signed in as ${authUser.email}`}</p>
+                <button loading={isLoading} className='bg-blue-500 ml-4 p-2 text- white rounded' onClick={userSignOut}>sign out</button> </> : <p>signed out</p>}
         </div>
     )
 }

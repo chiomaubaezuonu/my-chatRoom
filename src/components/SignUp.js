@@ -49,11 +49,10 @@ const SignUp = () => {
             })
         setEmail("")
         setPassword("")
-        //console.log(currentUser)
     }
     return (    
         <div className=''>
-            <div className='block lg:flex lg:border-8 lg:p-8 h-min bg-gray-100'>
+            <div className='block lg:flex lg:border-8 lg:p-2 h-min bg-gray-100'>
                 <form onSubmit={createAccount} className='w-full mb-0 px-2 py-4 bg-white md:w-full h-full md:h-screen md:py-6 lg:w-1/2'>
                     <img src={signUp} className='w-[7rem] md:w-[4rem] mt-4 py-2 pl-4' alt='signUp-icon' />
                     <h1 className='text-center mx-auto  text-3xl  pt-3 md:text-5xl lg:text-4xl'>Create an account</h1>

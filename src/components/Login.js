@@ -23,7 +23,7 @@ const Login = () => {
     const [modal, setModal] = React.useState(false);
     const [successMsg, setSuccessMsg] = useState("");
     const auth = getAuth();
-    const user = auth.currentUser;
+   
     const login = (e) => {
         setIsLoading(true)
         e.preventDefault();

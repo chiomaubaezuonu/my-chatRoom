@@ -13,7 +13,7 @@ const AuthDetails = (props) => {
     const [email, setEmail] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false)
     const navigate = useNavigate()
-    const { title } = props
+    // const { title } = props
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
 
@@ -39,6 +39,7 @@ const AuthDetails = (props) => {
             console.log("signed out successful")
         }).catch((error) => {
             console.log(error)
+            setIsLoading(false)
         })
     }
     return (

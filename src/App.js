@@ -6,6 +6,7 @@ import ChatRoom from './components/ChatRoom'
 import SignUp from './components/SignUp'
 import AuthDetails from './components/AuthDetails'
 import './App.css'
+import Navbar from './components/Navbar';
 
 //import Create from './components/Create'
 
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="chatroom" element={<ChatRoom />} />
             <Route path="login" element={<Login />} />
             <Route path="authdetails" element={<AuthDetails />} />
+            <Route path="navbar" element={<Navbar />} />
           </Routes>
         </BrowserRouter>
       </UsernameContext.Provider>

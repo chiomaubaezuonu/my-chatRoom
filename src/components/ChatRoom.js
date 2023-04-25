@@ -7,7 +7,8 @@ import { UsernameContext, AuthContext } from '../App';
 import AuthDetails from './AuthDetails';
 import moment, { Moment } from 'moment/moment';
 import chat1 from "../images/chat1.png"
-import sendBtn from "../images/sendBtn.png"
+import sendBtn from "../images/sendBtn.png";
+import deleteIcon from "../images/deleteIcon.svg"
 import SendMessage from './sendMessage';
 import Navbar from './Navbar';
 
@@ -21,6 +22,7 @@ const ChatRoom = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [sendingMsg, setSendingMsg] = useState(false);
+  const [deleteChat, setDeleteChat] = useState(false)
   //const [modal, setModal] = React.useState(true)
 
   //get data
@@ -82,6 +84,9 @@ const ChatRoom = () => {
     if (newChat.trim() === "") {
       alert("Enter valid message")
       return "";
+    } else {
+      setNewChat(newChat)
+      setNewChat("")
     }
     try {
       await addDoc(chatRef, {
@@ -94,12 +99,6 @@ const ChatRoom = () => {
     catch (err) {
       setSendingMsg(false)
       console.log(err)
-    }
-    setNewChat(" ")
-    if (sendingMsg === false) {
-      console.log("false")
-    } else {
-      console.log("True")
     }
   };
 
@@ -114,8 +113,10 @@ const ChatRoom = () => {
 
   //deleteDoc
   const deleteComment = async (id) => {
+    setDeleteChat(true)
     const chatDoc = doc(db, "chats", id)
     await deleteDoc(chatDoc)
+    setDeleteChat(false)
   }
   return (
     <div className=''>
@@ -125,6 +126,7 @@ const ChatRoom = () => {
           return <div key={chat.id} className={`chat ${chat.uid === auth.currentUser.uid ? "chat-start" : "chat-end"}`}>
             <div className='m-2 check'>
               <div className='flex gap-2'>
+                {/* {sendingMsg === true ? <p className='text-black opacity-50'>Typing...</p> : <p>sent</p> } */}
                 <div className="chat-image avatar">
                   <div className="w-10 rounded-full">
                     <img src={chat1} alt='chatApp' />
@@ -135,8 +137,13 @@ const ChatRoom = () => {
               <div className="chat-header text-black">
                 <h1>From {chat.user}</h1>
               </div>
-              <time className="text-xs text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</time>
-              <button className='bg-red-600 bl m-2 px-2 rounded text-white' onClick={() => { deleteComment(chat.id) }}>Delete</button>
+              <time className="text-xs mt-1 text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</time>
+
+              <button className='bg-red-600  m-2 px-2 rounded text-white' onClick={() => { deleteComment(chat.id) }}>Delete
+              {deleteChat  ? <img className='w-6 ml-4' src={deleteIcon} alt
+              delete-spinner /> : " "}
+              </button>
+
               {/* <div className="chat-footer opacity-50">
                 Delivered
               </div> */}

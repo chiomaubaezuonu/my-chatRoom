@@ -8,7 +8,7 @@ const Button = (props) => {
   return (
 
     <div className = "flex justify-center">
-      <button onClick={onClick} className='bg-[#080f19] flex justify-center w-full md:p-4 mx-auto text-white py-2 md:px-32 text-center rounded' type='submit'>
+      <button onClick={onClick} className='bg-[#080f19] flex justify-center w-full md:p-7 md:mt-6 lg:mt-0 lg:p-3 mx-auto text-white py-2 md:px-28 text-center rounded' type='submit'>
         {children}
         {loading ? <img className=" w-6 ml-4 " src={spinner} alt="" /> : " "}
       </button>

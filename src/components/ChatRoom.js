@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from 'react'
+import React, { useEffect, useContext, useRef, useState } from 'react'
 import { db } from '../fb-config'
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, orderBy, serverTimestamp, query, onSnapshot, QuerySnapshot } from "firebase/firestore"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -20,6 +20,7 @@ const ChatRoom = () => {
   const chatRef = collection(db, "chats");
   const auth = getAuth();
   const user = auth.currentUser;
+  const [sendingMsg, setSendingMsg] = useState(false);
   //const [modal, setModal] = React.useState(true)
 
   //get data
@@ -54,7 +55,7 @@ const ChatRoom = () => {
       ...doc.data()
 
     }))
-    setChats(chats) 
+    setChats(chats)
   })
   // Real time data collection with onSnapshot with useEffect and querySnapshot
   // useEffect(() => {
@@ -75,6 +76,7 @@ const ChatRoom = () => {
 
   //addDoc
   const send = async (e) => {
+    setSendingMsg(true)
     e.preventDefault();
     const { uid, displayName } = auth.currentUser
     if (newChat.trim() === "") {
@@ -86,14 +88,21 @@ const ChatRoom = () => {
         comment: newChat,
         user: displayName,
         createdAt: serverTimestamp(),
-        uid, 
+        uid,
       })
     }
     catch (err) {
+      setSendingMsg(false)
       console.log(err)
     }
     setNewChat(" ")
+    if (sendingMsg === false) {
+      console.log("false")
+    } else {
+      console.log("True")
+    }
   };
+
   //update
   // const update = async (id, comment) => {
   //   const chatDoc = doc(db, "chats", id)
@@ -113,7 +122,7 @@ const ChatRoom = () => {
       <Navbar />
       <div className='pb-44 pt-20'>
         {chats.map((chat) => {
-          return <div key={chat.id} className={`chat ${chat.uid === auth.currentUser ? "chat-end" : "chat-start"}`}>
+          return <div key={chat.id} className={`chat ${chat.uid === auth.currentUser.uid ? "chat-start" : "chat-end"}`}>
             <div className='m-2 check'>
               <div className='flex gap-2'>
                 <div className="chat-image avatar">

@@ -8,9 +8,10 @@ import AuthDetails from './AuthDetails';
 import moment, { Moment } from 'moment/moment';
 import chat1 from "../images/chat1.png"
 import sendBtn from "../images/sendBtn.png";
-import deleteIcon from "../images/deleteIcon.svg"
+import deleteImg from "../images/deleteImg.svg"
 import SendMessage from './sendMessage';
 import Navbar from './Navbar';
+import deleteIcon from "../images/deleteIcon.png"
 
 const ChatRoom = () => {
   const chatEndRef = useRef();
@@ -22,7 +23,7 @@ const ChatRoom = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [sendingMsg, setSendingMsg] = useState(false);
-  const [deleteChat, setDeleteChat] = useState(false)
+  const [deleteChat, setDeleteChat] = useState("")
   //const [modal, setModal] = React.useState(true)
 
   //get data
@@ -113,10 +114,11 @@ const ChatRoom = () => {
 
   //deleteDoc
   const deleteComment = async (id) => {
-    setDeleteChat(true)
+    setDeleteChat(id)
+    console.log(deleteChat)
     const chatDoc = doc(db, "chats", id)
     await deleteDoc(chatDoc)
-    setDeleteChat(false)
+    setDeleteChat("")
   }
   return (
     <div className=''>
@@ -134,15 +136,12 @@ const ChatRoom = () => {
                 </div>
                 <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
               </div>
-              <div className="chat-header text-black">
-                <h1>From {chat.user}</h1>
+              <div className="chat-header flex text-black">
+                <h1 className='mt-2 mr-0'>From {chat.user}</h1>
+                {deleteChat === chat.id ? <img className='w-6 ml-4' src={deleteImg} alt
+                  delete-spinner /> : <img className='m-2 px-2 w-8 cursor-pointer rounded text-white' src={deleteIcon} alt='deleteIcon' onClick={() => { deleteComment(chat.id) }} />}
               </div>
-              <time className="text-xs mt-1 text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</time>
-
-              <button className='bg-red-600  m-2 px-2 rounded text-white' onClick={() => { deleteComment(chat.id) }}>Delete
-              {deleteChat  ? <img className='w-6 ml-4' src={deleteIcon} alt
-              delete-spinner /> : " "}
-              </button>
+              <time className="text-xs mt-3 text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</time>
 
               {/* <div className="chat-footer opacity-50">
                 Delivered

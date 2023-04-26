@@ -132,7 +132,7 @@ const ChatRoom = () => {
                     <img src={chat1} alt='chatApp' />
                   </div>
                 </div>
-                <div className="chat-bubble">{chat.comment}</div>
+                <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
               </div>
               <div className="chat-header text-black">
                 <h1>From {chat.user}</h1>

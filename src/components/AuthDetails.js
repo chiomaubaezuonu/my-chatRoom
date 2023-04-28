@@ -45,7 +45,7 @@ const AuthDetails = (props) => {
     return (
         <div>
             {authUser ? <> <p className='hidden md:block text-center'>{`signed in as ${authUser.email}`}</p>
-                <button loading={isLoading} className='bg-blue-500 ml-4 p-2 text- white rounded' onClick={userSignOut}>sign out</button> </> : <p>signed out</p>}
+                <Link to="/"> <button loading={isLoading} className='bg-blue-500 ml-4 p-2 text- white rounded' onClick={userSignOut}>sign out</button></Link> </> : <p>signed out</p>}
         </div>
     )
 }

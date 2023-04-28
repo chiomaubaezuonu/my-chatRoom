@@ -1,15 +1,13 @@
 import React, { useEffect, useContext, useRef, useState } from 'react'
 import { db } from '../fb-config'
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, orderBy, serverTimestamp, query, onSnapshot, QuerySnapshot } from "firebase/firestore"
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from '../fb-config'
+import { collection, addDoc, updateDoc, deleteDoc, doc, orderBy, serverTimestamp, query, onSnapshot } from "firebase/firestore"
+import { getAuth } from "firebase/auth";
+// import { auth } from '../fb-config'
 import { UsernameContext, AuthContext } from '../App';
-import AuthDetails from './AuthDetails';
 import moment, { Moment } from 'moment/moment';
-import chat1 from "../images/chat1.png"
-import sendBtn from "../images/sendBtn.png";
-import deleteImg from "../images/deleteImg.svg"
-import SendMessage from './sendMessage';
+import chatUser from "../images/chatUser.png"
+//import sendBtn from "../images/sendBtn.png";
+import deleteImg from "../images/deleteImg.svg";
 import Navbar from './Navbar';
 import deleteIcon from "../images/deleteIcon.png"
 
@@ -21,10 +19,9 @@ const ChatRoom = () => {
   const [newChat, setNewChat] = React.useState("");
   const chatRef = collection(db, "chats");
   const auth = getAuth();
-  const user = auth.currentUser;
-  const [sendingMsg, setSendingMsg] = useState(false);
-  const [deleteChat, setDeleteChat] = useState("")
-  //const [modal, setModal] = React.useState(true)
+  //const user = auth.currentUser;
+  const [sendingMsg, setSendingMsg] = useState(true);
+  const [deleteChat, setDeleteChat] = useState("");
 
   //get data
   // useEffect(() => {
@@ -79,15 +76,14 @@ const ChatRoom = () => {
 
   //addDoc
   const send = async (e) => {
-    setSendingMsg(true)
     e.preventDefault();
     const { uid, displayName } = auth.currentUser
     if (newChat.trim() === "") {
       alert("Enter valid message")
       return "";
     } else {
-      setNewChat(newChat)
       setNewChat("")
+      //setNewChat(newChat)
     }
     try {
       await addDoc(chatRef, {
@@ -98,11 +94,10 @@ const ChatRoom = () => {
       })
     }
     catch (err) {
-      setSendingMsg(false)
+      setSendingMsg("")
       console.log(err)
     }
-  };
-
+  }
   //update
   // const update = async (id, comment) => {
   //   const chatDoc = doc(db, "chats", id)
@@ -115,7 +110,6 @@ const ChatRoom = () => {
   //deleteDoc
   const deleteComment = async (id) => {
     setDeleteChat(id)
-    console.log(deleteChat)
     const chatDoc = doc(db, "chats", id)
     await deleteDoc(chatDoc)
     setDeleteChat("")
@@ -123,26 +117,37 @@ const ChatRoom = () => {
   return (
     <div className=''>
       <Navbar />
-      <div className='pb-44 pt-20'>
+      <div className='pb-44 pt-20 border-x-8 px-0'>
+
         {chats.map((chat) => {
           return <div key={chat.id} className={`chat ${chat.uid === auth.currentUser.uid ? "chat-start" : "chat-end"}`}>
+
             <div className='m-2 check'>
-              <div className='flex gap-2'>
-                {/* {sendingMsg === true ? <p className='text-black opacity-50'>Typing...</p> : <p>sent</p> } */}
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={chat1} alt='chatApp' />
+              {chat.uid === auth.currentUser.uid ?
+                <div className='flex gap-2'>
+                  <div className="chat-image avatar">
+                    <div className="w-10 rounded-full">
+                      <img src={chatUser} alt='chatApp' />
+                    </div>
                   </div>
-                </div>
-                <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
-              </div>
+                  <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
+                </div> : <div className='flex gap-2'>
+                  <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
+                  <div className="chat-image avatar">
+                    <div className="w-10 rounded-full">
+                      <img src={chatUser} alt='chatApp' />
+                    </div>
+                  </div>
+                </div>}
+
               <div className="chat-header flex text-black">
                 <h1 className='mt-2 mr-0'>From {chat.user}</h1>
-                {deleteChat === chat.id ? <img className='w-6 ml-4' src={deleteImg} alt
-                  delete-spinner /> : <img className='m-2 px-2 w-8 cursor-pointer rounded text-white' src={deleteIcon} alt='deleteIcon' onClick={() => { deleteComment(chat.id) }} />}
+                {deleteChat === chat.id ? <img className='w-6 ml-4' src={deleteImg} alt="delete-spinner" /> : <img className='m-2 px-2 w-8 cursor-pointer rounded text-white' src={deleteIcon} alt='deleteIcon' onClick={() => { deleteComment(chat.id) }} />}
               </div>
-              <time className="text-xs mt-3 text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</time>
-
+              <div className='opacity-50 mt-0  justify-center items-center'>
+                {/* {chats === auth.currentUser.uid && newChat ? "typing" : <p className='mt-0 mr-2 text-sm'>sent</p>} */}
+                <p className="text-xs mt-0 text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</p>
+              </div>
               {/* <div className="chat-footer opacity-50">
                 Delivered
               </div> */}

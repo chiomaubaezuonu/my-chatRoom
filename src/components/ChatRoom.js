@@ -172,7 +172,7 @@ const ChatRoom = () => {
       </div>
     )
   } else {
-    navigate = ("/")
+    navigate("/")
   }
 
 }

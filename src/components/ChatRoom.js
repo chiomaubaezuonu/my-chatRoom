@@ -38,7 +38,6 @@ const ChatRoom = () => {
   //     })
   // }, [])
 
-
   const scrollToBottom = () => {
     chatEndRef.current.scrollIntoView({ behavior: "smooth" })
   }
@@ -157,7 +156,7 @@ const ChatRoom = () => {
             </div>
           </div>
         })}
-        {auth.currentUser.uid && sendingMsg === true ? <p>Typing...</p> : <p>""</p>}
+        {/* {auth.currentUser.uid && sendingMsg === true ? <p>Typing...</p> : <p>""</p>} */}
       </div>
       <div className='bg-gray-400 fixed bottom-0 w-full py-10 shadow-lg'>
         <form onSubmit={send} className='containerWrap flex px-2'>

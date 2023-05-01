@@ -20,7 +20,7 @@ const ChatRoom = () => {
   const chatRef = collection(db, "chats");
   const auth = getAuth();
   //const user = auth.currentUser;
-  const [sendingMsg, setSendingMsg] = useState(true);
+  const [sendingMsg, setSendingMsg] = useState(false);
   const [deleteChat, setDeleteChat] = useState("");
 
   //get data
@@ -76,6 +76,7 @@ const ChatRoom = () => {
 
   //addDoc
   const send = async (e) => {
+    setSendingMsg(true)
     e.preventDefault();
     const { uid, displayName } = auth.currentUser
     if (newChat.trim() === "") {
@@ -94,7 +95,9 @@ const ChatRoom = () => {
       })
     }
     catch (err) {
-      setSendingMsg("")
+      if(!err){
+      setSendingMsg(false)
+      } 
       console.log(err)
     }
   }
@@ -154,6 +157,7 @@ const ChatRoom = () => {
             </div>
           </div>
         })}
+        {auth.currentUser.uid && sendingMsg === true ? <p>Typing...</p> : <p>""</p>}
       </div>
       <div className='bg-gray-400 fixed bottom-0 w-full py-10 shadow-lg'>
         <form onSubmit={send} className='containerWrap flex px-2'>

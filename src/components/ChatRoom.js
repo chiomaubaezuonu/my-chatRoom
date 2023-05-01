@@ -11,6 +11,7 @@ import deleteImg from "../images/deleteImg.svg";
 import Navbar from './Navbar';
 import deleteIcon from "../images/deleteIcon.png"
 import { Link } from 'react-router-dom';
+import SignUp from './SignUp';
 
 const ChatRoom = () => {
   const chatEndRef = useRef();
@@ -121,7 +122,9 @@ const ChatRoom = () => {
   
   return (
     <div className=''>
-      <Navbar />
+      {currentUser ?
+      <div>
+        <Navbar />
       <div className='pb-44 pt-20 border-x-8 px-0'>
 
         {chats.map((chat) => {
@@ -167,6 +170,9 @@ const ChatRoom = () => {
         </form>
       </div>
       <div ref={chatEndRef}></div>
+      </div>: 
+      <SignUp />
+      }
     </div>
   )
 }

@@ -23,10 +23,10 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignUp />} />
-            <Route path="chatroom" element={<ChatRoom />} />
+            {/* <Route path="chatroom" element={<ChatRoom />} /> */}
             <Route path="login" element={<Login />} />
-            <Route path="authdetails" element={<AuthDetails />} />
-            <Route path="navbar" element={<Navbar />} />
+            {/* <Route path="authdetails" element={<AuthDetails />} /> */}
+            {/* <Route path="navbar" element={<Navbar />} /> */}
           </Routes>
         </BrowserRouter>
       </UsernameContext.Provider>

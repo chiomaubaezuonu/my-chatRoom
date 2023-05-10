@@ -64,7 +64,7 @@ const SignUp = () => {
                     <hr></hr>
                     <input className='my-3 p-2 rounded-sm md:py-6 lg:py-1 xl:py-2' type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password..." required />
                     <hr></hr>
-                    <Button loading={isLoading}>createAccount</Button>
+                    <Button loading={isLoading}>Create Account</Button>
                 </div>
                 <div className='w-full mb-0 mt-4 md:mt-10 lg:mt-0 justify-center flex'>
                     <h2 className='mr-2 mt-2 lg:mt-2 md:mt-1 text-xl md:text-4xl lg:text-2xl'>Already have an account?</h2>

@@ -119,60 +119,60 @@ const ChatRoom = () => {
     setDeleteChat("")
   }
   const { currentUser } = auth;
-  
+
   return (
     <div className=''>
-      {currentUser ?
+
       <div>
         <Navbar />
-      <div className='pb-44 pt-20 border-x-8 px-0'>
+        <div className='pb-44 pt-20 border-x-8 px-0'>
 
-        {chats.map((chat) => {
-          return <div key={chat.id} className={`chat ${chat.uid === auth.currentUser.uid ? "chat-start" : "chat-end"}`}>
-            <div className='m-2 check'>
-              {chat.uid === auth.currentUser.uid ?
-                <div className='flex gap-2'>
-                  <div className="chat-image avatar">
-                    <div className="w-10 rounded-full">
-                      <img src={chatUser} alt='chatApp' />
+          {chats.map((chat) => {
+            return <div key={chat.id} className={`chat ${chat.uid === auth.currentUser.uid ? "chat-start" : "chat-end"}`}>
+              <div className='m-2 check'>
+                {chat.uid === auth.currentUser.uid ?
+                  <div className='flex gap-2'>
+                    <div className="chat-image avatar">
+                      <div className="w-10 rounded-full">
+                        <img src={chatUser} alt='chatApp' />
+                      </div>
                     </div>
-                  </div>
-                  <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
-                </div> : <div className='flex gap-2'>
-                  <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
-                  <div className="chat-image avatar">
-                    <div className="w-10 rounded-full">
-                      <img src={chatUser} alt='chatApp' />
+                    <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
+                  </div> : <div className='flex gap-2'>
+                    <div className="chat-bubble bg-blue-500 text-white">{chat.comment}</div>
+                    <div className="chat-image avatar">
+                      <div className="w-10 rounded-full">
+                        <img src={chatUser} alt='chatApp' />
+                      </div>
                     </div>
-                  </div>
-                </div>}
+                  </div>}
 
-              <div className="chat-header flex text-black">
-                <h1 className='mt-2 mr-0'>From {chat.user}</h1>
-                {deleteChat === chat.id ? <img className='w-6 ml-4' src={deleteImg} alt="delete-spinner" /> : <img className='m-2 px-2 w-8 cursor-pointer rounded text-white' src={deleteIcon} alt='deleteIcon' onClick={() => { deleteComment(chat.id) }} />}
-              </div>
-              <div className='opacity-50 mt-0  justify-center items-center'>
-                {/* {chats === auth.currentUser.uid && newChat ? "typing" : <p className='mt-0 mr-2 text-sm'>sent</p>} */}
-                <p className="text-xs mt-0 text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</p>
-              </div>
-              {/* <div className="chat-footer opacity-50">
+                <div className="chat-header flex text-black">
+                  <h1 className='mt-2 mr-0'>From {chat.user}</h1>
+                  {deleteChat === chat.id ? <img className='w-6 ml-4' src={deleteImg} alt="delete-spinner" /> : <img className='m-2 px-2 w-8 cursor-pointer rounded text-white' src={deleteIcon} alt='deleteIcon' onClick={() => { deleteComment(chat.id) }} />}
+                </div>
+                <div className='opacity-50 mt-0  justify-center items-center'>
+                  {/* {chats === auth.currentUser.uid && newChat ? "typing" : <p className='mt-0 mr-2 text-sm'>sent</p>} */}
+                  <p className="text-xs mt-0 text-black opacity-50">{chat.createdAt ? moment(chat.createdAt.toDate()).calendar() : ""}</p>
+                </div>
+                {/* <div className="chat-footer opacity-50">
              Delivered
            </div> */}
+              </div>
             </div>
-          </div>
-        })}
-        {/* {auth.currentUser.uid && sendingMsg === true ? <p>Typing...</p> : <p>""</p>} */}
+          })}
+          {/* {auth.currentUser.uid && sendingMsg === true ? <p>Typing...</p> : <p>""</p>} */}
+        </div>
+        <div className='bg-gray-400 fixed bottom-0 w-full py-10 shadow-lg'>
+          <form onSubmit={send} className='containerWrap flex px-2'>
+            <input value={newChat} onChange={(event) => { setNewChat(event.target.value) }} className='input w-full focus:outline-none text-gray-700 bg-gray-100 rounded-r-none' type='text' />
+            <button type='submit' className='w-auto bg-gray-500 text-white rounded-r-lg px-5 text-sm'>Send</button>
+          </form>
+        </div>
+        <div ref={chatEndRef}></div>
       </div>
-      <div className='bg-gray-400 fixed bottom-0 w-full py-10 shadow-lg'>
-        <form onSubmit={send} className='containerWrap flex px-2'>
-          <input value={newChat} onChange={(event) => { setNewChat(event.target.value) }} className='input w-full focus:outline-none text-gray-700 bg-gray-100 rounded-r-none' type='text' />
-          <button type='submit' className='w-auto bg-gray-500 text-white rounded-r-lg px-5 text-sm'>Send</button>
-        </form>
-      </div>
-      <div ref={chatEndRef}></div>
-      </div>: 
       <SignUp />
-      }
+
     </div>
   )
 }

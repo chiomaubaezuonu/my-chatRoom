@@ -171,7 +171,6 @@ const ChatRoom = () => {
         </div>
         <div ref={chatEndRef}></div>
       </div>
-      <SignUp />
 
     </div>
   )

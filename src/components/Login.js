@@ -30,6 +30,7 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 if (userCredential) {
+                    console.log(userCredential)
                     setSuccessMsg("Successfully logged in")
                     navigate("/chatroom")
                 }
